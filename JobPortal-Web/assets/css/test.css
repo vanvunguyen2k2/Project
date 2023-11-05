@@ -1,0 +1,151 @@
+.row.sm-gutter {
+    margin-left: 65px;
+}
+
+
+.box-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 35rem);
+    gap: 1.5rem;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 12px;
+}
+
+.box{
+    /* background-color: var(--white); */
+    border-radius: .5rem;
+    border: var(--border);
+    padding: 1rem;
+    box-shadow: var(--box-shadow);
+    overflow-x: hidden;
+}
+
+.company{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+img{
+    height: 9rem;
+    width: 9rem;
+    object-fit: contain;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);;
+
+}
+
+h3{
+    font-size: 16px;
+    color: var(--black) ;
+
+}
+
+.info i {
+    padding: 5px;
+}
+
+
+
+.tags i {
+    padding: 5px;
+}
+
+
+span{
+    font-size: 13px;
+    color: var(--black) ;
+}
+
+.job-title{
+    font-size: 13px;
+    color: var(--black);
+    padding-bottom: .2rem;
+}
+
+.job-title i{
+    margin-right: .3rem;
+    color: 	#FF0000;
+}
+
+ .box .location{
+    padding-top: 4px;
+    font-size: 13px;
+    color: var(--black);
+}
+ .box .location i{
+    margin-right: .5rem;
+    color: 	#FF0000;
+}
+
+ .box .tags{
+    display: grid;
+    flex-wrap: wrap;
+    font-size: 13px;
+}
+
+ .box .tags i{
+    color: 	orangered;
+}
+
+ .box  .fa-heart{
+    /* background-color: var(--light-bg); */
+    color: 	orangered;
+    font-size: 2rem;
+    cursor: pointer;
+    padding-left: 13rem;
+    cursor: pointer;
+}
+
+ .box  .fa-heart:hover{
+    background-color: bisque;
+}
+
+.btn {
+
+}
+
+.flex-btn {
+    
+    display: flex;
+    justify-content: space-between;
+   
+}
+.flex-btn a {
+    font-size: 1.6rem;
+    color: orangered;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    background-color: wheat;
+
+
+}
+
+.flex-btn button {
+    font-size: 1.6rem;
+    color: orangered;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    
+    background-color: wheat;
+
+
+}
+
+.flex-btn a button{
+    align-items: center;
+    text-align: center;
+}
+
+.btn {
+    font-size: 2rem;
+    color: white;
+    background-color: brown;
+}
+
+/* a {
+    width: 100%;
+    height: 45px;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+} */
+

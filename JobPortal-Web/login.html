@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title> Login Form</title>
+	<!-- <link rel="stylesheet" type="text/css" href="./assets/css/login.css"> -->
+	<link rel="stylesheet" href="assets/css/loginNew.css">
+	<link rel="stylesheet" href="assets/css/footer.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<!-- CSS only -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+		<!-- jquery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+	<div class="wrapper">
+		<form action="">
+			<h1>Login</h1>
+			<div class="box-input">
+				<input oninput="Checkvalue()" id="inputUsername" type="text" placeholder="Username"  required>
+				<i class="fas fa-user-alt"></i>
+			</div>
+			<p id="errUsername" style="color: red; font-size: 1.2rem;"></p>
+	
+			<div class="box-input">
+				<input oninput="Checkvalue()" id="password" type="password" placeholder="Password" required>
+				<i class="far fa-eye" onclick="Showpassword()"></i>
+			</div>
+			<p id="errPass" style="color: red; font-size: 1.2rem;"></p>
+
+	
+			<div class="remember-forgot">
+				<label>
+					<input type="checkbox">
+				</label>
+				<a href="./forgotPassword.html">Forgot password</a>
+	
+			</div>
+	
+			<button type="submit" class="btn" onclick="login()">
+				Login
+			</button>
+	
+			<div class="register-link">
+				<p>Don't have an account ?  
+					<a href="./newSignup.html">Register</a>
+				</p>
+			</div>
+		</form>
+	</div>
+
+	
+	
+</body>
+
+ <!-- footer -->
+ <footer class="footer">
+	<section class="grid">
+		<div class="box">
+			<h3>Quick links</h3>
+			<a href="home.html"><i class="fas fa angle-right"></i>Home</a>
+			<a href="about.html"><i class="fas fa angle-right"></i>About</a>
+
+			<a href="jobs.html"><i class="fas fa angle-right"></i>Jobs</a>
+			<a href="contact.html"><i class="fas fa angle-right"></i>Contact us</a>
+			<a href="#"><i class="fas fa angle-right"></i>filter search</a>
+		</div>
+
+		<div class="box">
+			<h3>Extra links</h3>
+			<a href="#"><i class="fas fa angle-right"></i>Account</a>
+			<a href="login.html"><i class="fas fa angle-right"></i>Login</a>
+			<a href="register.html"><i class="fas fa angle-right"></i>Register</a>
+			<a href="#"><i class="fas fa angle-right"></i>Post jobs</a>
+			<a href="#"><i class="fas fa angle-right"></i>Dashboard</a>
+
+		   
+		</div>
+
+		<div class="box">
+			<h3>Follow us</h3>
+			<a href="#" class="fab-fa-facebook"> <i class="fas fa angle-right"></i>Facebook</a>
+			<a href="#" class="fab-fa-youtube"><i class="fas fa angle-right"></i>Youtube</a>
+			<a href="#" class="fab-fa-instagram"><i class="fas fa angle-right"></i>Instagram</a>
+			<a href="#" class="fab-fa-tiktok"><i class="fas fa angle-right"></i>Tiktok</a>
+			<a href="#" class="fab-fa-instagram"><i class="fas fa angle-right"></i>Instagram</a>
+		</div>
+	</section>
+
+	<div class="author"> 
+		<h3>Author: Nguyễn Văn Vũ</h3>
+		<h3>Email: vanvunguyen2k2@gmai.com</h3> 
+	</div>
+
+
+	
+</footer>
+
+<script src="/assets/js/login.js"></script>
+
+</html>

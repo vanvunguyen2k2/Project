@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="assets/css/loginNew.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+
+    <!-- CSS only -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+
+</head>
+<body>
+
+    <div class="wrapper">
+		<form action="">
+			<h1>Sign up</h1>
+			<div class="box-input">
+				<input oninput="listenInput()" id="inputUsername" type="text" placeholder="Username"  required>
+				<i class="fas fa-user-alt"></i>
+			</div>
+			<span id="errUsername" style="color: red;"></span>
+	
+			<div class="box-input">
+				<input oninput="listenInput()" id="password" type="password"  placeholder="Password" required>
+				<i class="far fa-eye" onclick="Showpassword()"></i>
+			</div>
+			<span id="errPass" style="color: red;"></span>
+
+
+            <div class="box-input">
+				<input oninput="listenInput()" id="fullname" type="text" placeholder="Fullname" required>
+				<i class="fas fa-user-circle"></i>
+			</div>
+			<span id="errFullname" style="color: red;"></span>
+
+
+            <div class="box-input">
+				<input oninput="listenInput()" id="email" type="text" placeholder="Email" required>
+				<i class="fas fa-envelope-open"></i>
+			</div>
+			<span id="errEmail" style="color: red;"></span>
+
+
+            <div class="box-input">
+				<input oninput="listenInput()" id="numberphone" type="number" placeholder="Number Phone" required>
+				<i class="fas fa-phone"></i>
+			</div>
+			<span id="errNumber" style="color: red;"></span>
+
+
+			<div class="box-input">
+				<input oninput="listenInput()" id="information" type="text" placeholder="information" required>
+				<!-- <i class="fas fa-phone"></i> -->
+			</div>
+			<span id="errInfo" style="color: red;"></span>
+
+
+			<div class="box-input">
+				<input oninput="listenInput()" id="date_of_birth" type="date" placeholder="date_of_birth" required>
+				<!-- <i class="fas fa-phone"></i> -->
+			</div>
+			<span id="errDateofBirth" style="color: red;"></span>
+
+			<div class="box-input">
+				<input oninput="listenInput()" id="image" type="text" placeholder="image" required>
+				<!-- <i class="fas fa-phone"></i> -->
+			</div>
+			<span id="err" style="color: red;"></span>
+
+
+			
+			<label for="gender" style="font-size: 1.6rem; color: white;">Gender: </label>
+			<select name="gender" id="gender" style="width: 30%; text-align: center;">
+				  <option value="MALE">MALE</option>
+				  <option value="FEMALE">FEMALE</option>
+			</select>
+			<br>
+
+			<label for="role" style="font-size: 1.6rem; color: white;">Role: </label>
+			<select name="role" id="role" style="width: 30%; text-align: center;">
+				  <option value="ADMIN">ADMIN</option>
+				  <option value="EMPLOYER">EMPLOYER</option>
+			</select>
+
+
+			<button type="submit" class="btn" onclick="signUp()">
+				Sign up
+			</button>
+
+			<div class="readyLogin">
+				<span style="color: chocolate; font-size: 1.5rem;">You already have an account? <a href="./login.html" style="color: brown;">Login</a></span>
+
+			</div>
+	
+			<div class="register-link">
+				<p style="color: chocolate;">Or other way ?  
+					<a style="color: white;" href="#">Facebook</a>
+                    <a style="color: white;" href="#">Google</a>
+				</p>
+			</div>
+
+			<!-- <button onclick="validateFomrSignup()">click here</button> -->
+		</form>
+	</div>
+
+
+
+    
+</body>
+
+<script src="./assets/js/login.js"></script>
+</html>

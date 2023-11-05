@@ -1,0 +1,73 @@
+.job-details .details{
+    background-color: var(--white);
+    border-radius: .5rem;
+    border: var(--border);
+    padding: 2rem;
+    box-shadow: var(--box-shadow);
+    overflow-x: hidden;
+}
+
+.job-details .details h3{
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--black);
+    text-transform: capitalize;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+
+}
+
+.job-details .details .job-info a{
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: .5rem;
+    color: var(--mainColor);
+}
+
+.job-details .details .job-info a:hover{
+    text-decoration: underline;
+}
+.job-details .details .job-info p{
+    padding: 1rem 0;
+    font-size: 1.5rem;
+    color: var(--lightColor);
+}
+
+.job-details .details .basic-detail{
+    background-color: var(--light-bg);
+    margin: 1.5rem;
+    border-radius: .5rem;
+    padding: 2rem;
+    font-size: 1.3rem;
+    padding-bottom: 0;
+
+}
+
+.job-details .details .basic-detail p{
+    background-color: var(--light-bg);
+    margin: 1.5rem;
+    border-radius: .5rem;
+    padding-bottom:1rem;
+    font-size: 1.3rem;
+    text-transform: capitalize;
+}
+
+.job-details .details ul{
+    margin: 1rem 0;
+}
+
+.job-details .details ul li{
+    padding: 1rem 0;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    margin-left: 4rem;
+}
+
+.job-details .details .description{
+    margin-top: 1.5rem;
+}
+
+.job-details .details .description p{
+    font-size: 1.5rem;
+    margin-left: 1.5rem;
+}

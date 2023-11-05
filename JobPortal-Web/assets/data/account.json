@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "username": "ADMIN",
+    "role": "ADMIN",
+    "password": "123456",
+    "dateOfBirth": "2023-01-31T17:00:00.000+00:00",
+    "address": null,
+    "fullName": "Nguyễn văn vũ",
+    "phoneNumber": "+84377106297",
+    "email": "vunguyen2k2@gmail.com",
+    "facebook": null,
+    "information": null
+  },
+  {
+    "id": 2,
+    "username": "CUSTOMER",
+    "role": "CUSTOMER",
+    "password": "123456",
+    "dateOfBirth": "2023-02-03T17:00:00.000+00:00",
+    "address": null,
+    "fullName": "Nguyễn Tùng Lâm",
+    "phoneNumber": "+84377106297",
+    "email": "vunguyen2k2@gmail.com",
+    "facebook": null,
+    "information": null
+  }
+]
