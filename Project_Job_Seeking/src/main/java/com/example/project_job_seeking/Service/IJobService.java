@@ -28,4 +28,6 @@ public interface IJobService {
     Job get_by_id(int id);
 
     List<Job> findByCompanyName(String company_name);
+
+    List<Job> view ();
 }

@@ -102,4 +102,9 @@ public class JobService implements IJobService {
 
 
     }
+
+    @Override
+    public List<Job> view() {
+        return jobRepository.findAll();
+    }
 }

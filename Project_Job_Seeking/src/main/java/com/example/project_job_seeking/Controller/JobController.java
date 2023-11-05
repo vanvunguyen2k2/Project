@@ -81,5 +81,10 @@ public class JobController {
 
     }
 
+    @GetMapping("/view")
+    public List<Job> view(){
+        return jobService.view();
+    }
+
 
 }

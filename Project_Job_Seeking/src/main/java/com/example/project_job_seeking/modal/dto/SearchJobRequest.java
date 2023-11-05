@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 public class SearchJobRequest extends BaseRequest {
 
-    private String jobTitleName;
+    private String jobTitleNameRequest;
 
     //    DÙNG SET ĐỂ CHỈ LƯU ĐƯỢC 1 GIÁ TRỊ UNIQUE, KHÔNG CÓ SỰ TRÙNG LẶP
 
@@ -27,5 +27,7 @@ public class SearchJobRequest extends BaseRequest {
     private Set<applicationForm> application_way;
 
     private String companyName;
+
+    private String locationRequest;
 
 }

@@ -11,22 +11,36 @@ public class JobSpecification {
                 .and(buildConditionStatus(request))
                 .and(buildConditionCompanyName(request))
                 .and(buildConditionWay(request))
+                .and(buildConditionLocation(request))
                 .and(buildConditionSalary(request));
     }
 
     public static Specification<Job> buildConditionName(SearchJobRequest request) {
-        if (request.getJobTitleName() != null && !"".equals(request.getJobTitleName())) {
+        if (request.getJobTitleNameRequest() != null && !"".equals(request.getJobTitleNameRequest())) {
 //            Tạo điều kiện tìm kiếm với titleName
             return (root, query, cri) -> {
                 // root: Chọn cột, field, để tìm kiếm (giá trị là thuộc tính trong java)
                 // cri: Khai báo loại so sánh dữ liệu. ( lớn hơn, nhỏ hơn, equal, like,.... )
-                return cri.like(root.get("jobTitleName"), "%" + request.getJobTitleName() + "%");
+                return cri.like(root.get("jobTitleName"), "%" + request.getJobTitleNameRequest() + "%");
             };
 
         } else {
             return null;
         }
+    }
 
+    public static Specification<Job> buildConditionLocation(SearchJobRequest request) {
+        if (request.getLocationRequest() != null && !"".equals(request.getLocationRequest())) {
+//            Tạo điều kiện tìm kiếm với titleName
+            return (root, query, cri) -> {
+                // root: Chọn cột, field, để tìm kiếm (giá trị là thuộc tính trong java)
+                // cri: Khai báo loại so sánh dữ liệu. ( lớn hơn, nhỏ hơn, equal, like,.... )
+                return cri.like(root.get("location"), "%" + request.getLocationRequest().toLowerCase() + "%");
+            };
+
+        } else {
+            return null;
+        }
     }
 
     public static Specification<Job> buildConditionStatus(SearchJobRequest request) {
