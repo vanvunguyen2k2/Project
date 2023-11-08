@@ -23,6 +23,7 @@ let baseViewList = "http://localhost:8887/api/v1/job/get-All";
 
 $(function () {
   buildManager();
+  // buildAdmin();
   // getListProduct();
   // getListJob();
   viewListJob();
@@ -39,6 +40,21 @@ function validate() {
     alert("Bạn cần phải đăng nhập trước khi sử dụng");
     window.location.href = "login.html";
   }
+}
+
+function buildAdmin() {
+  if (localStorage.getItem("role") === "ADMIN") {
+    $("#user-login").append(
+      `
+     <li ><a href="">Quan ly nguoi dung</a></li>
+
+      
+      `
+
+    )
+    
+  }
+  
 }
 
 function buildManager() {
@@ -160,7 +176,7 @@ function fillterApply() {
 
 async function viewListJob() {
   $.ajax({
-    url: baseViewList,
+    url: baseViewList + "?sort=id,desc",
     type: "GET",
     beforeSend: function (xhr) {
       xhr.setRequestHeader(
@@ -192,38 +208,53 @@ async function viewListJob() {
   });
 }
 
+function showMessage(keyword) {
+  $(".heading").empty();
+  $(".heading").append( 
+    `<h2>Dữ liệu hiển thị cho từ khóa '${keyword}' </h2> `   )
+}
+
 function searchInput() {
-  let keyword = $(".header__search-input").val().toLowerCase();
+  let keyword = $(".header__search-input").val().toLowerCase().trim();
 
-  $.ajax({
-    url: "http://localhost:8887/api/v1/job/view",
-    type: "GET",
-    beforeSend: function (xhr) {
-      xhr.setRequestHeader(
-        "Authorization",
-        "Bearer " + localStorage.getItem("token")
-      );
-    },
-    contentType: "application/json",
-    // data : JSON.stringify(request),
-    error: function (err) {
-      console.log(err.message);
-      confirm(err.responseJSON.message);
-    },
-    success: function (data) {
-      console.log(data);
+  if (keyword !== "") {
+    $.ajax({
+      url: "http://localhost:8887/api/v1/job/view",
+      type: "GET",
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader(
+          "Authorization",
+          "Bearer " + localStorage.getItem("token")
+        );
+      },
+      contentType: "application/json",
+      // data : JSON.stringify(request),
+      error: function (err) {
+        console.log(err.message);
+        confirm(err.responseJSON.message);
+      },
+      success: function (data) {
+        console.log(data);
+  
+        let test = data.filter((value) => {
+          return value.jobTitleName.toLowerCase().includes(keyword) || 
+                  value.companyName.toLowerCase().includes(keyword) ||
+                  value.location.toLowerCase().includes(keyword) ||
+                  value.status.toLowerCase().includes(keyword);
+        });
 
-      let test = data.filter((value) => {
-        return value.jobTitleName.toLowerCase().includes(keyword);
-      });
+        console.log(test);
+        fillProductsToTable(test);
+        showMessage(keyword);
+        clear();
+      },
+    });
+    
+  }else{
+    alert("Mời nhập thông tin tìm kiếm");
+  }
 
-      console.log(test);
-      
-
-      fillProductsToTable(test);
-      clear();
-    },
-  });
+  
 }
 function clear() {
   document.getElementById("inputSearch").value = "";
@@ -343,24 +374,14 @@ function buildPagination(number, totalPages) {
     if (number === index) {
       $("#pagination").append(
         `<li class="pagination-item pagination-item--active">
-                                <a href="" class="pagination-item__link" onclick="chosePage(` +
-          index +
-          `)">
-                                ` +
-          index +
-          `</a>
+            <a href="" class="pagination-item__link" onclick="chosePage(` +index +`)">` + index + `</a>
         </li>`
       );
     } else {
       $("#pagination").append(
         `<li class="pagination-item">
-                                <a href="" class="pagination-item__link" onclick="chosePage(` +
-          index +
-          `)">
-                                ` +
-          index +
-          `</a>
-                              </li>`
+            <a href="" class="pagination-item__link" onclick="chosePage(` +index + `)">` +index +`</a> 
+            </li>`
       );
     }
   }
@@ -444,8 +465,8 @@ function fillProductsToTable(jobList) {
         `</h3>
                     <h4>` +
         job.jobTitleName +
-        `</h4><br></br>
-                    <span>2 days ago</span>
+        `</h4>
+                    <span>${job.create_date}</span>
                 </div>
             </div>
 
