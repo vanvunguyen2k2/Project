@@ -3,6 +3,7 @@ package com.example.project_job_seeking.Controller;
 import com.example.project_job_seeking.Service.JobApplicationService;
 import com.example.project_job_seeking.modal.Entity.JobStatus;
 import com.example.project_job_seeking.modal.Entity.jobApplication;
+import com.example.project_job_seeking.modal.dto.ApplyListDto;
 import com.example.project_job_seeking.modal.dto.JobApplicationRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +47,11 @@ public class JobApplicationController {
     @PostMapping("/approvedJob/{jobManaId}")
     public jobApplication approvedJob(@PathVariable int jobManaId) {
         return job_management_service.approvedJob(jobManaId);
+
+    }
+    @GetMapping("/viewList/{id}")
+    public ApplyListDto viewListTest(@PathVariable int id) {
+        return job_management_service.viewListApplyJobTest(id);
 
     }
 

@@ -1,5 +1,6 @@
 package com.example.project_job_seeking.Repository;
 
+import com.example.project_job_seeking.modal.Entity.Role;
 import com.example.project_job_seeking.modal.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -12,5 +13,6 @@ public interface UserRepository extends JpaRepository<User, Integer>, JpaSpecifi
 
     Optional<User> findUserByUsername(String username);
 
+    Optional<User> findById(int userId);
 
 }

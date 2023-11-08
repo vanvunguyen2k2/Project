@@ -8,13 +8,16 @@ import com.example.project_job_seeking.modal.Entity.Role;
 import com.example.project_job_seeking.modal.Entity.User;
 import com.example.project_job_seeking.modal.dto.SearchUserRequest;
 import com.example.project_job_seeking.modal.dto.UserCreateRequestDto;
+import com.example.project_job_seeking.modal.dto.UserDto;
 import com.example.project_job_seeking.modal.dto.UserUpdateRequestDto;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 //import org.springframework.security.core.GrantedAuthority;
@@ -31,7 +34,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,6 +52,9 @@ public class UserService implements IUserService , UserDetailsService {
     @Autowired
     private IMailSenderService iMailSenderService;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @Override
     public User create(UserCreateRequestDto dto) {
         Optional<User> optionalUser = userRepository.findUserByUsername(dto.getUsername());
@@ -62,7 +67,7 @@ public class UserService implements IUserService , UserDetailsService {
 
         String passwordEncodeder = passwordEncoder.encode(dto.getPassword());
         entity.setPassword(passwordEncodeder);
-        entity.setRole(Role.EMPLOYER);
+        entity.setRole(Role.CANDIDATE);
         System.out.println(entity);
 
 //        GỬI MAIL
@@ -82,13 +87,22 @@ public class UserService implements IUserService , UserDetailsService {
     }
 
     @Override
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public Page<User> getAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     @Override
     public void delete(int id) {
-        userRepository.deleteById(id);
+        Optional<User> checkRole = userRepository.findById(id);
+        if (checkRole.isPresent()) {
+            User user = checkRole.get();
+
+            if (user.getRole() == Role.ADMIN){
+                    throw new AppException(ErrorResponseEnum.FORBIDDEN);
+            }else {
+                userRepository.deleteById(id);
+            }
+        }
     }
 
     public Page<User> search(SearchUserRequest request){
@@ -118,15 +132,22 @@ public class UserService implements IUserService , UserDetailsService {
     }
 
     @Override
-    public User get_by_id(int id) {
+    public UserDto get_by_id(int id) {
         Optional<User> userOptional = userRepository.findById(id);
+
         if (userOptional.isPresent()){
-            return userOptional.get();
+            UserDto  userDto = modelMapper.map(userOptional.get(), UserDto.class);
+
+            return userDto;
         }else {
             return null;
         }
     }
 
+    @Override
+    public List<User> view() {
+        return userRepository.findAll();
+    }
 
 
     /**

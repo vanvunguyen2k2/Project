@@ -9,8 +9,10 @@ import com.example.project_job_seeking.modal.Entity.Job;
 import com.example.project_job_seeking.modal.Entity.JobStatus;
 import com.example.project_job_seeking.modal.Entity.jobApplication;
 import com.example.project_job_seeking.modal.Entity.User;
+import com.example.project_job_seeking.modal.dto.ApplyListDto;
 import com.example.project_job_seeking.modal.dto.JobApplicationRequestDto;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,8 @@ public class JobApplicationService implements IJobApplicationService {
     private  UserRepository userRepository;
     @Autowired
     private JobApplicationRepository job_management_repository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public jobApplication create(JobApplicationRequestDto dto) {
@@ -110,6 +114,17 @@ public class JobApplicationService implements IJobApplicationService {
         jobApplication jobApplication = optionalJobApplication.get();
         jobApplication.setJobStatus(JobStatus.APPROVED);
         return job_management_repository.save(jobApplication);
+    }
+
+    @Override
+    public ApplyListDto viewListApplyJobTest(int id) {
+        Optional<jobApplication> optionalJobApplication = job_management_repository.findById(id);
+        if (optionalJobApplication.isPresent()) {
+            ApplyListDto applyListDto = modelMapper.map(optionalJobApplication.get(), ApplyListDto.class);
+            return applyListDto;
+
+        }
+        return null;
     }
 
 }

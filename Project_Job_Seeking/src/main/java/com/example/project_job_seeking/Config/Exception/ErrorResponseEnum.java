@@ -8,6 +8,7 @@ public enum ErrorResponseEnum {
     NOT_FOUND_JOB_APPLY(404, "KHÔNG TÌM THẤY CÔNG VIỆC NÀO APPLY GẦN ĐÂY"),
     USER_NAME_EXISTSED(404, "Username da ton tai"),
     EMAIL_NOT_EXISTED(404, "KHÔNG TÌM THẤY EMAIL BẠN VỪA NHẬP"),
+    FORBIDDEN(403, "KHÔNG ĐƯỢC PHÉP XÓA USER NÀY"),
     Not_FOUND(404, "KHÔNG TÌM THẤY JOB hoac KHÔNG TÌM THẤY NGƯỜI DÙNG");
 
     public final int status;

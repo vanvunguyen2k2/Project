@@ -1,10 +1,12 @@
 package com.example.project_job_seeking.modal.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -53,4 +55,14 @@ public class User extends BaseEntity {
     @Column(name = "gender")
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<jobApplication> applicationList;
+
+
+
+
+
+
 }
