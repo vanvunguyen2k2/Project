@@ -9,6 +9,8 @@ public enum ErrorResponseEnum {
     USER_NAME_EXISTSED(404, "Username da ton tai"),
     EMAIL_NOT_EXISTED(404, "KHÔNG TÌM THẤY EMAIL BẠN VỪA NHẬP"),
     FORBIDDEN(403, "KHÔNG ĐƯỢC PHÉP XÓA USER NÀY"),
+    FORBIDDEN_USER(403, "BẠN CHƯA KÍCH HOẠT TÀI KHOẢN"),
+
     Not_FOUND(404, "KHÔNG TÌM THẤY JOB hoac KHÔNG TÌM THẤY NGƯỜI DÙNG");
 
     public final int status;

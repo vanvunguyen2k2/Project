@@ -1,9 +1,11 @@
 package com.example.project_job_seeking.modal.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -51,6 +53,8 @@ public class Job extends BaseEntity{
     @Column(name = "career", length = 100, nullable = false)
     private String career;
 
-    @OneToMany(mappedBy = "job")
-    private List<jobApplication> applicationList;
+
+
+
+
 }

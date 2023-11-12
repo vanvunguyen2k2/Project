@@ -63,12 +63,11 @@ public class UserService implements IUserService , UserDetailsService {
         }
         User entity = new User();
         BeanUtils.copyProperties(dto, entity);
-        System.out.println(entity);
 
         String passwordEncodeder = passwordEncoder.encode(dto.getPassword());
         entity.setPassword(passwordEncodeder);
         entity.setRole(Role.CANDIDATE);
-        System.out.println(entity);
+        entity.setWorking(true);
 
 //        GỬI MAIL
         String text = "click de hoan thien tai khoan" + dto.getFull_name() + " : " + "<a href=\"http://localhost:8887/api/v1/user/get_by_id/6\">Click</a>\n";
@@ -100,7 +99,8 @@ public class UserService implements IUserService , UserDetailsService {
             if (user.getRole() == Role.ADMIN){
                     throw new AppException(ErrorResponseEnum.FORBIDDEN);
             }else {
-                userRepository.deleteById(id);
+                user.setWorking(false);
+                userRepository.save(user);
             }
         }
     }
@@ -137,7 +137,6 @@ public class UserService implements IUserService , UserDetailsService {
 
         if (userOptional.isPresent()){
             UserDto  userDto = modelMapper.map(userOptional.get(), UserDto.class);
-
             return userDto;
         }else {
             return null;

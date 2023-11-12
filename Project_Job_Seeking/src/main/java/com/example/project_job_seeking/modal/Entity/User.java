@@ -6,7 +6,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -56,9 +58,14 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private List<jobApplication> applicationList;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @Column(name = "appliedJob")
+    private Set<Job> appliedJob;
+
+    @Column(name = "isWorking")
+    private boolean isWorking;
+
 
 
 

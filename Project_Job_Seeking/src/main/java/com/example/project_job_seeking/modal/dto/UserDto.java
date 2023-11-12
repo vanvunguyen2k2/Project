@@ -2,6 +2,7 @@ package com.example.project_job_seeking.modal.dto;
 
 
 import com.example.project_job_seeking.modal.Entity.Gender;
+import com.example.project_job_seeking.modal.Entity.Job;
 import com.example.project_job_seeking.modal.Entity.Role;
 import com.example.project_job_seeking.modal.Entity.jobApplication;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -41,6 +43,6 @@ public class UserDto {
 
     private Gender gender;
 
-    private String applicationListJobJobTitleName;
+    private Set<Job> appliedJob;
 
 }

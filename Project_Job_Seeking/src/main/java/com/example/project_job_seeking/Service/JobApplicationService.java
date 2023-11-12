@@ -9,15 +9,17 @@ import com.example.project_job_seeking.modal.Entity.Job;
 import com.example.project_job_seeking.modal.Entity.JobStatus;
 import com.example.project_job_seeking.modal.Entity.jobApplication;
 import com.example.project_job_seeking.modal.Entity.User;
-import com.example.project_job_seeking.modal.dto.ApplyListDto;
 import com.example.project_job_seeking.modal.dto.JobApplicationRequestDto;
+import com.example.project_job_seeking.modal.dto.UserDto;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -36,31 +38,48 @@ public class JobApplicationService implements IJobApplicationService {
     @Override
     public jobApplication create(JobApplicationRequestDto dto) {
 
+        Set<Job> jobList = null;
+        Set<User> userList = null;
+
+
         Optional<Job> optionalJob=jobRepository.findById(dto.getJob_id());
 
-
-//        if (optionalJob.isEmpty()) {
-//            throw new AppException(ErrorResponseEnum.NOT_FOUND_JOB);
-//
-//        }
         Optional<User> optionalUser=userRepository.findById(dto.getUser_id());
-//        if (optionalUser.isEmpty()){
-//            throw new AppException(ErrorResponseEnum.NOT_FOUND_USER);
-//
-//        }
+
 
         if (optionalJob.isEmpty() || optionalUser.isEmpty() ) {
             throw new AppException(ErrorResponseEnum.Not_FOUND);
-
         }
+
+
 
             Job job = optionalJob.get();
             User user = optionalUser.get();
+            if (user.isWorking() == false) {
+
+                throw new AppException(ErrorResponseEnum.FORBIDDEN_USER);
+
+            }
             jobApplication job_management = new jobApplication();
             job_management.setJob(job);
             job_management.setUser(user);
             job_management.setJobStatus(JobStatus.PENDING);
+//            APPLIEDJOB: những job mà user đã applied
+
+
+            jobList = user.getAppliedJob();
+            jobList.add(job_management.getJob());
+            user.setAppliedJob(jobList);
+//            System.out.println(user.getAppliedJob());
+
+//            isAplliedByUser : những user đã applied job này
+//            userList = job.getIsAppliedBy();
+//            userList.add(job_management.getUser());
+//            job.setIsAppliedBy(userList);
+
+
             return job_management_repository.save(job_management);
+
 
     }
 
@@ -116,15 +135,5 @@ public class JobApplicationService implements IJobApplicationService {
         return job_management_repository.save(jobApplication);
     }
 
-    @Override
-    public ApplyListDto viewListApplyJobTest(int id) {
-        Optional<jobApplication> optionalJobApplication = job_management_repository.findById(id);
-        if (optionalJobApplication.isPresent()) {
-            ApplyListDto applyListDto = modelMapper.map(optionalJobApplication.get(), ApplyListDto.class);
-            return applyListDto;
-
-        }
-        return null;
-    }
 
 }

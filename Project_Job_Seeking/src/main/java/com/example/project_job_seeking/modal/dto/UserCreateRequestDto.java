@@ -41,7 +41,7 @@ public class UserCreateRequestDto {
 
     @NotBlank(message = "Email Không được để trống")
     private String email;
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date date_of_birth;
 
     private Gender gender;
