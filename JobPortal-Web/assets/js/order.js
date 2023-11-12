@@ -12,7 +12,7 @@ function SearchOrderRequest(orderBy, statusOrder, pageSize, pageNumber, sortBy, 
 
 $(function () {
     // $("#pagination").load("/assets/html/pagination.html");
-    console.log(123);
+    // console.log(123);
     orderPageAll();
 });
 

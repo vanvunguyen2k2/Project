@@ -6,12 +6,8 @@ let baseViewListUser = "http://localhost:8887/api/v1/user/view";
 
 $(function () {
   getListUser();
-  // buildManager();
-  // // buildAdmin();
-  // // getListProduct();
-  // // getListJob();
-  // viewListJob();
-  // searchUser();
+  
+  
 
   
 });
@@ -42,16 +38,101 @@ function ManageUserFillToTable(userList) {
                 <td>` +valueUser.information.toUpperCase() +`</td>  
                 <td>` +valueUser.role +`</td>    
                 <td>` +valueUser.phone_number +`</td>
+                <td>` +valueUser.working +`</td>
                 <td>
-                <svg onclick="deleteUser(${valueUser.id})" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-              </svg>
+                
+                <div  style="display: flex; padding: 15px 5px; " >
+                
+                  <svg class = "more" style="padding-right: 10px;width="25" height="25"" onclick="deleteUser(${valueUser.id})" xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                  </svg>
+                 
+                  
+                      <svg onclick="viewJobApllied(${valueUser.id})" class = "more"  xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-vcard" viewBox="0 0 16 16">
+                        <path d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5ZM9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8Zm1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z"/>
+                        <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96c.026-.163.04-.33.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1.006 1.006 0 0 1 1 12V4Z"/>
+                        
+                      </svg>
+                  
+                  
+                </div>
                     
                 </td>
                 </tr>
             `
         );
   }
+}
+
+
+
+
+
+function viewJobApllied (userId) {
+  
+  console.log(userId);
+
+  
+  
+//   $.ajax({
+//     url: baseUrlUser + "get_by_id/" + userId,
+//     type: 'GET',
+//     beforeSend: function (xhr) {
+//         xhr.setRequestHeader(
+//           "Authorization",
+//           "Bearer " + localStorage.getItem("token")
+//         );
+//       },
+// contentType: "application/json",
+// error: function (err) {
+//     console.log(err.message);
+//     confirm(err.responseJSON.message);
+//   },
+//   success: function (data) {
+//     console.log(data.appliedJob);
+//     fillJobToTable(data.appliedJob);
+    
+   
+//     // console.log(data);
+//     // getListUser();
+//     // ManageUserFillToTable(data);
+  
+//   },
+// })
+}
+
+function fillJobToTable(jobList) {
+  
+
+  $(".jobApplied").empty();
+
+  for (var index = 0; index < jobList.length; index++) {
+    let jobValue = jobList[index];
+    console.log(jobValue);
+
+    jobValue == 0 ? 
+
+    $(".jobApplied").append(`<h1>User này chưa applied job nào</h1>`) :
+
+    $(".jobApplied").append(
+      `
+        <tr class = "user-padding">
+        <td>` + jobValue.id +`    </td>
+        <td><img src="` +jobValue.image +`" alt="" width="50" height="50"></td>
+        <td>` +jobValue.career +`</td>
+        <td>` +jobValue.JobTitleName +`</td>
+        <td>` +jobValue.companyName +`</td>    
+        <td>` +jobValue.location +`</td>     
+        <td>` +jobValue.salary +`</td>  
+        <td>` +jobValue.status +`</td>
+
+      `
+      )
+
+
+    }
+    
+  
 }
 
 
@@ -74,6 +155,7 @@ function deleteUser(userId) {
 
         // console.log(data);
         alert("Delete Success")
+        getListUser();
         ManageUserFillToTable(data);
       },
     })
@@ -188,10 +270,6 @@ function searchUser() {
       }
   
   
-
-
-
-
 function getListUser() {
   $.ajax({
     url: baseUrlGetlistUser,
@@ -208,11 +286,13 @@ function getListUser() {
       confirm(err.responseJSON.message);
     },
     success: function (data) {
+      console.log(data.content);
       // console.log(data.size);
       // console.log(data.number);
       // console.log(data.content);
       // console.log(data.totalPages);
       ManageUserFillToTable(data.content);
+      
       buildPagingUser(data.number + 1, data.totalPages)
       PageSizeUser();
       
@@ -220,12 +300,6 @@ function getListUser() {
   });
 }
 
-// function changSize() {
-//   // document.getElementById("table_size").value = 0;
-//   let val = document.getElementById("table_size").value;
-//   console.log(val);
-  
-// }
 
 
 function PageSizeUser() {

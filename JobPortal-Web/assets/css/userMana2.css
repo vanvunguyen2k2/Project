@@ -61,6 +61,11 @@ justify-content: space-between;
     /* cursor: pointer; */
 }
 
+.more:hover {
+    background-color: #902e31;
+    
+}
+
 
 
 .filterEntries .entries select{

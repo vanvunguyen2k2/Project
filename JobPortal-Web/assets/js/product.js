@@ -19,7 +19,7 @@ let jobManagement = [];
 
 let baseUrljob = "http://localhost:8887/api/v1/job";
 let baseUrljobApply = "http://localhost:8887/api/v1/job_management";
-let baseViewList = "http://localhost:8887/api/v1/job/get-All";
+let baseViewList = "http://localhost:8887/api/v1/job/get-All?sort=id,desc";
 
 $(function () {
   buildManager();
@@ -176,7 +176,7 @@ function fillterApply() {
 
 async function viewListJob() {
   $.ajax({
-    url: baseViewList + "?sort=id,desc",
+    url: baseViewList ,
     type: "GET",
     beforeSend: function (xhr) {
       xhr.setRequestHeader(
@@ -406,8 +406,8 @@ function chosePage(pageNumber) {
   baseViewList = baseViewList.substr(0, 40);
   console.log(baseViewList);
   // baseViewList = baseUrljob.substring();
-  console.log(baseViewList);
   baseViewList = baseViewList + "?page=" + pageNumber;
+  console.log(baseViewList);
 
   // getListJob();
   viewListJob();
