@@ -5,7 +5,7 @@ import com.example.project_job_seeking.modal.dto.Search;
 import com.example.project_job_seeking.modal.dto.SearchJobRequest;
 import org.springframework.data.jpa.domain.Specification;
 
-public class TestSpificationJob {
+public class FilterSpificationJobVersion2 {
 
     public static Specification<Job> buildRequest (Search searchJobRequest) {
         return Specification.where(ConditionWayRequest(searchJobRequest))
@@ -42,6 +42,18 @@ public class TestSpificationJob {
         if (searchJobRequest.getApplication_way() != null && searchJobRequest.getApplication_way().size() > 0) {
             return ((root, query, criteriaBuilder) -> {
                 return root.get("application_way").in(searchJobRequest.getApplication_way());
+            });
+
+        }else {
+            return null;
+        }
+    }
+
+    public static Specification<Job> ConditionSalaryRequest(Search  searchJobRequest){
+
+        if (searchJobRequest.getMinSalary() != 0 && searchJobRequest.getMaxSalary() != 0) {
+            return ((root, query, criteriaBuilder) -> {
+                return criteriaBuilder.between(root.get("salary"), searchJobRequest.getMinSalary(), searchJobRequest.getMaxSalary());
             });
 
         }else {

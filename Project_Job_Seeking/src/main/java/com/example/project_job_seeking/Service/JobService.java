@@ -2,12 +2,9 @@ package com.example.project_job_seeking.Service;
 
 import com.example.project_job_seeking.Repository.JobRepository;
 import com.example.project_job_seeking.Repository.specification.JobSpecification;
+import com.example.project_job_seeking.Repository.specification.FilterSpificationJobVersion2;
 import com.example.project_job_seeking.modal.Entity.Job;
-import com.example.project_job_seeking.modal.Entity.User;
-import com.example.project_job_seeking.modal.dto.BaseRequest;
-import com.example.project_job_seeking.modal.dto.JobCreaterequestDto;
-import com.example.project_job_seeking.modal.dto.JobUpdateRequestDto;
-import com.example.project_job_seeking.modal.dto.SearchJobRequest;
+import com.example.project_job_seeking.modal.dto.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +61,14 @@ public class JobService implements IJobService {
     }
 
     @Override
+    public Page<Job> searchfilterJob(Search searchJobRequest ,Pageable pageable) {
+        Specification<Job> condition = FilterSpificationJobVersion2.buildRequest(searchJobRequest);
+        System.out.println(condition);
+        return jobRepository.findAll(condition, pageable);
+    }
+
+
+    @Override
     public void delete(int id) {
         jobRepository.deleteById(id);
     }
@@ -107,4 +112,6 @@ public class JobService implements IJobService {
     public List<Job> view() {
         return jobRepository.findAll();
     }
+
+
 }

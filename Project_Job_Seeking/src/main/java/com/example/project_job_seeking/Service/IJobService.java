@@ -1,11 +1,7 @@
 package com.example.project_job_seeking.Service;
 
 import com.example.project_job_seeking.modal.Entity.Job;
-import com.example.project_job_seeking.modal.Entity.JobStatus;
-import com.example.project_job_seeking.modal.dto.BaseRequest;
-import com.example.project_job_seeking.modal.dto.JobCreaterequestDto;
-import com.example.project_job_seeking.modal.dto.JobUpdateRequestDto;
-import com.example.project_job_seeking.modal.dto.SearchJobRequest;
+import com.example.project_job_seeking.modal.dto.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -30,4 +26,6 @@ public interface IJobService {
     List<Job> findByCompanyName(String company_name);
 
     List<Job> view ();
+
+    Page<Job> searchfilterJob(Search searchJobRequest , Pageable pageable);
 }

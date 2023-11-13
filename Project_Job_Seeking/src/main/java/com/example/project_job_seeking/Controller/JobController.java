@@ -87,4 +87,9 @@ public class JobController {
     }
 
 
+    @PostMapping("/searchfilterJob")
+    public Page<Job> test (@RequestBody Search searchJobRequest, Pageable pageable) {
+        return jobService.searchfilterJob(searchJobRequest, pageable);
+    }
+
 }

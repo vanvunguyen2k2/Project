@@ -47,7 +47,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // config những API ko cần xác thực
                 .antMatchers("api/not-authenticated", "/swagger-ui/**", "/swagger-ui/index.html",
                         "/api/v1/auth/login-jwt" ,"/api/v1/user/create", "/api/v1/auth/login-basic-v2",
-                        "/api/v1/user/get-All", "/api/v1/job/search", "/api/v1/job_management/**",
+                        "/api/v1/user/get-All", "/api/v1/job/get-All" ,"/api/v1/job/search", "/api/v1/job_management/**",
                         "/api/v1/job/**", "/api/v1/user/**", "/api/v1/user/get_by_id/**" ).permitAll()
 
                 // Config những API phải có Authority là ADMIN thì mới được truy cập
