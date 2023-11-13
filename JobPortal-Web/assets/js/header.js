@@ -31,6 +31,7 @@ function checkCandidate() {
     console.log(isCandidate);
 }
 $(function () {
+    checkCandidate();
 
     checkAdmin();
     checkUser();
@@ -96,7 +97,6 @@ function checkLogin() {
     } else if (isEMPLOYER) {
         console.log("Đã đăng nhập với role là EMPLOYER");
         document.getElementById("user-login").innerHTML = textUserLoginRoleEmployee;
-        
     }
 }
 

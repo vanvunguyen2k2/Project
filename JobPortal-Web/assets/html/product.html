@@ -1,13 +1,8 @@
-
-
-
-
-
 <!-- NƠI ĐỂ CHỨA NHỮNG Ô CÔNG VIỆC   -->
 <div>
 
 
-<!-- ----------- PHẦN HEADER TEXT (ALL JOBS) -->
+    <!-- ----------- PHẦN HEADER TEXT (ALL JOBS) -->
     <h1 class="heading" style="text-align: left; color: orangered;"></h1>
 
 
@@ -17,22 +12,22 @@
                LOAD TỪ CLASS "HOME-PRODUCT TỪ FILE "INDEX.HTML      -->
     <div class="row sm-gutter content-product" id="content-product">
 
-    
-    </div>
-<!-- --------------------------------------------------- -->
 
-<!-- ---------    CÁC CHỨC NĂNG KHAC -->
-    
+    </div>
+    <!-- --------------------------------------------------- -->
+
+    <!-- ---------    CÁC CHỨC NĂNG KHAC -->
+
 
 </div>
-    
-    
+
+
 
 
 
 <!-- Phân trang -->
 <div>
-    <ul class="pagination home-product__pagination"  id="pagination">
+    <ul class="pagination home-product__pagination" id="pagination">
     </ul>
 </div>
 <!-- Modal Confirm Delete -->
@@ -78,29 +73,29 @@
 
                         <div class="form-group-lg">
                             <label for="jobname"><b>Job Name </b></label>
-                            <input type="text" class="form-control-lg mb-3" placeholder="Job Name"
-                                name="job name" style="font-size: 1,4rem;" id="jobName" required>
+                            <input type="text" class="form-control-lg mb-3" placeholder="Job Name" name="job name"
+                                style="font-size: 1,4rem;" id="jobName" required>
 
                             <label for="jobcareer"><b>Job Career </b></label>
-                            <input type="text" class="form-control-lg mb-3" placeholder="Job Career"
-                                name="job career" style="font-size: 1,4rem;" id="jobCareer" required>
+                            <input type="text" class="form-control-lg mb-3" placeholder="Job Career" name="job career"
+                                style="font-size: 1,4rem;" id="jobCareer" required>
 
                             <label for="image">Image Job or Company</label>
                             <!-- <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control-file mb-3 d-inline" id="image"> -->
-                            <input type="text" class="form-control-lg mb-3" placeholder="Link image"
-                                name="image" style="font-size: 1,4rem;" id="jobImage" required>
+                            <input type="text" class="form-control-lg mb-3" placeholder="Link image" name="image"
+                                style="font-size: 1,4rem;" id="jobImage" required>
 
                             <label for="companyName"><b>Company Name </b></label>
                             <input type="text" class="form-control-lg mb-3" placeholder="Company Name"
                                 name="companyName" id="jobCompanyName" required>
 
                             <label for="price"><b>Salary </b></label>
-                            <input type="number" class="form-control-lg mb-3" placeholder="Salary"
-                                name="salary" id="jobSalary" required>
+                            <input type="number" class="form-control-lg mb-3" placeholder="Salary" name="salary"
+                                id="jobSalary" required>
 
                             <label for="location"><b>Location </b></label>
-                            <input type="text" class="form-control-lg mb-3" placeholder="Location"
-                                name="location" id="jobLocation" required>
+                            <input type="text" class="form-control-lg mb-3" placeholder="Location" name="location"
+                                id="jobLocation" required>
 
                             <label for="status"><b>Status</b></label>
                             <select class="form-control-lg mb-3" name="status" id="jobStatus">
@@ -115,7 +110,162 @@
                                 <option value="OFFLINE">OFFLINE</option>
                             </select>
 
-    
+
+
+                            <label for="jobdescription"><b>Job Description</b></label>
+                            <input type="text" class="form-control-lg mb-3" placeholder="Job Description"
+                                name="jobdescription" id="jobDescription" required>
+
+
+                            <label for="jobrequirements"><b>Job Requirements</b></label>
+                            <input type="text" class="form-control-lg mb-3" placeholder="Job Requirements"
+                                name="jobrequirements" id="jobRequirements" required>
+
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary base-font" data-dismiss="modal"
+                    id="cancel">Cancel</button>
+                <button type="button" class="btn base-shoppe-bg base-font" onclick="saveProduct()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalJobDetails" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content base-font">
+
+            <!-- Header của modal -->
+            <div class="modal-header">
+                <h2 class="modal-title" id="headerFormAccount">Job details</h2>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Body của modal -->
+            <div class="modal-body">
+
+                <form action="/action_page.php">
+                    <div class="modal-dialog modal-lg">
+
+                        <input type="hidden" id="jobId" name="id" value="">
+
+                        <div class="modal-content"
+                            style="gap: 10px; padding-left: 10px; border: none; font-size: 1.6rem; color: orangered;">
+
+                            <img style="width: 200px; height: 100px; object-fit: contain;" id="image" src="" alt="">
+
+                            <label for="jobname"><b>Career: </b><span style="font-size: 1.6rem; "
+                                    id="CareerJobDetails"></span></label>
+
+
+                            <label for="jobcareer"><b>Company Name: </b><span style="font-size: 1.6rem; "
+                                    id="CompanyNameJobDetails"></span> </label>
+
+
+                            <label for="image"><b>Position: </b><span style="font-size: 1.6rem; "
+                                    id="PositionJobDetails"></span></label>
+
+
+
+                            <label for="companyName"><b>Location: </b><span style="font-size: 1.6rem; "
+                                    id="LocationJobDetails"></span></label>
+
+
+                            <label for="price"><b>Salary: </b><span style="font-size: 1.6rem; "
+                                    id="SalaryJobDetails"></span> </label>
+
+
+                            <label for="location"><b>Status: </b><span style="font-size: 1.6rem; "
+                                    id="StatusJobDetails"></span> </label>
+
+
+                            <label for="status"><b>Requirement: </b><span style="font-size: 1.6rem; "
+                                    id="RequirementJobDetails"></span></label>
+
+
+                            <label for="apply"><b>Description: </b><span style="font-size: 1.6rem; "
+                                    id="DescriptionJobDetails"></span></label>
+
+
+
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary base-font" data-dismiss="modal"
+                    id="cancel">Cancel</button>
+                <!-- <button type="button" class="btn base-shoppe-bg base-font" onclick="saveProduct()">Save</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalListJobApplied" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content base-font">
+
+            <!-- Header của modal -->
+            <div class="modal-header">
+                <h2 class="modal-title" id="headerFormAccount">Job Applied</h2>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Body của modal -->
+            <div class="modal-body">
+
+                <form action="/action_page.php">
+                    <div class="modal-container">
+
+                        <input type="hidden" id="jobId" name="id" value="">
+
+                        <div class="form-group-lg">
+                            <label for="jobname"><b>Job Name </b></label>
+                            <input type="text" class="form-control-lg mb-3" placeholder="Job Name" name="job name"
+                                style="font-size: 1,4rem;" id="jobName" required>
+
+                            <label for="jobcareer"><b>Job Career </b></label>
+                            <input type="text" class="form-control-lg mb-3" placeholder="Job Career" name="job career"
+                                style="font-size: 1,4rem;" id="jobCareer" required>
+
+                            <label for="image">Image Job or Company</label>
+                            <!-- <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control-file mb-3 d-inline" id="image"> -->
+                            <input type="text" class="form-control-lg mb-3" placeholder="Link image" name="image"
+                                style="font-size: 1,4rem;" id="jobImage" required>
+
+                            <label for="companyName"><b>Company Name </b></label>
+                            <input type="text" class="form-control-lg mb-3" placeholder="Company Name"
+                                name="companyName" id="jobCompanyName" required>
+
+                            <label for="price"><b>Salary </b></label>
+                            <input type="number" class="form-control-lg mb-3" placeholder="Salary" name="salary"
+                                id="jobSalary" required>
+
+                            <label for="location"><b>Location </b></label>
+                            <input type="text" class="form-control-lg mb-3" placeholder="Location" name="location"
+                                id="jobLocation" required>
+
+                            <label for="status"><b>Status</b></label>
+                            <select class="form-control-lg mb-3" name="status" id="jobStatus">
+                                <option value="FULL_TIME">FULL_TIME</option>
+                                <option value="PART_TIME">PART_TIME</option>
+                                <option value="REMOTE">REMOTE</option>
+                            </select>
+
+                            <label for="apply"><b>Apply</b></label>
+                            <select class="form-control-lg mb-3" name="apply" id="jobApply">
+                                <option value="ONLINE">ONLINE</option>
+                                <option value="OFFLINE">OFFLINE</option>
+                            </select>
+
+
 
                             <label for="jobdescription"><b>Job Description</b></label>
                             <input type="text" class="form-control-lg mb-3" placeholder="Job Description"
@@ -142,3 +292,4 @@
 </div>
 
 <script src="/assets/js/product.js"></script>
+<script src="/assets/js/manageUser.js"></script>

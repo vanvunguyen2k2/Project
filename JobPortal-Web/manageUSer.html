@@ -7,20 +7,26 @@
     
     
     <link rel="stylesheet" href="assets/css/userMana2.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- JQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+     <!-- <link rel="stylesheet" href="assets/css/jobitems.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/fonts/fontawesome-free-5.12.1-web/css/all.min.css" />
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!-- CSS only -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
 </head>
   <body>
     <div class="container">
       <header>
         <div class="fix">
           <div class="filter">
-            <label  for="search">Search</label>
+            <!-- <label  for="search"></label> -->
             <h2 class="message"></h2>
             <input
               style="font-size: 17px; width: 250px;"
@@ -28,7 +34,7 @@
               name=""
               id="search"
               placeholder="Enter name/role/location/email"/>
-              <button style="font-size: large; background-color: blanchedalmond; color: brown; cursor: pointer;" onclick="searchUser()">Search</button>
+              <button style="font-size: large; background-color: brown; color: white; cursor: pointer;" onclick="searchUser()">Search</button>
           </div>
           <div class="filterEntries">
             <div class="entries">
@@ -54,13 +60,9 @@
           <tr class="heading">
             <th>id</th>
             <th>Image</th>
-            <th>Full Name</th>
             <th>UserName</th>
             <th>Password</th>
-            <th>Email</th>
-            <th>Location</th>
             <th>Role</th>
-            <th>Phone</th>
             <th>isWorking</th>
             <th>Action</th>
           </tr>
@@ -144,8 +146,7 @@
       </table>
 
       <footer>
-        <span class="showEntries">Showing 1 to 10 of 50 entries</span>
-        <div class="user-pagination">
+        <div class="user-pagination" >
                 <!-- <button>Prev</button>
                 <button class="active">1</button>
                 <button>2</button>
@@ -239,6 +240,7 @@
         </footer>
       </div>
     </div> -->
+   
   </body>
 
   <script src="assets/js/manageUser.js"></script>
@@ -247,3 +249,57 @@
 
 
 
+<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+<!-- <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+  
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    
+  </div>
+</div> -->
+
+
+
+<div id="modalListJobApplied" class="modal fade " tabindex="-1">
+  <div class="modal-dialog">
+      <div class="modal-content base-font">
+
+          <!-- Header của modal -->
+          <div class="modal-header">
+              <h2 class="modal-title" id="headerFormAccount">Job Applied</h2>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <!-- Body của modal -->
+          <div class="modal-body">
+
+              <form action="/action_page.php" id="customers">
+                
+                  <div class="modal-container jobApplied">
+
+                    <h1 id="Nodatatoshow"></h1>
+
+                    
+                   
+                  </div>
+              </form>
+          </div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary base-font" data-dismiss="modal"
+                  id="cancel">Cancel</button>
+              <!-- <button type="button" class="btn base-shoppe-bg base-font" onclick="saveProduct()">Save</button> -->
+          </div>
+      </div>
+  </div>
+</div>

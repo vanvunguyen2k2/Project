@@ -8,7 +8,9 @@ let application_way = [];
 let status = [];
 let minSalary = 1;
 let maxSalary = 99999999;
-let isManagerJob = true;
+let isAdminJob = true;
+let isCandidateRole = true;
+let isEmployeeRole = true;
 let token = "";
 let page_size = 4;
 let page = 1;
@@ -27,6 +29,7 @@ $(function () {
   // getListProduct();
   // getListJob();
   viewListJob();
+  // $("#modalJobDetails").modal("show");
 });
 
 function validate() {
@@ -47,18 +50,13 @@ function buildAdmin() {
     $("#user-login").append(
       `
      <li ><a href="">Quan ly nguoi dung</a></li>
-
-      
       `
-
     )
-    
   }
-  
 }
 
 function buildManager() {
-  if ("EMPLOYER" === localStorage.getItem("role")) {
+  if ("CANDIDATE" === localStorage.getItem("role")) {
     $(".header__cart")
       .empty()
       .append(
@@ -70,11 +68,13 @@ function buildManager() {
       </div>
       `
       );
-    isManagerJob = false;
+    isAdminJob = false;
+    isCandidateRole = true;
+    isEmployeeRole = false;
   } else if (localStorage.getItem("role") === null) {
     $("#button-add").empty();
   } else {
-    isManagerJob = true;
+    isAdminJob = true;
     // $("#button-add").empty();
     $("#button-add").empty()
       .append(`<button type="button" class="btn base-font base-shoppe-bg" style=" width: 80%;" 
@@ -95,6 +95,15 @@ function searchListJob(jobTitleNameRequest,status,minSalary,maxSalary,applicatio
   this.page_size = page_size;
   this.sortField = sortField;
   this.sortType = sortType;
+}
+
+function searchFilter(locationRequest, application_way, status, minSalary, maxSalary) {
+  this.locationRequest = locationRequest;
+  this.application_way = application_way;
+  this.status = status;
+  this.minSalary = minSalary;
+  this.maxSalary = maxSalary;
+  
 }
 
 function SearchProductRequest(
@@ -168,11 +177,46 @@ function fillterApply() {
   getTypeProduct();
   getStyle();
   getStatusJob();
+  searchFilterJob();
   
-  // console.log(typeProduct);
-  
+}
+
+async function searchFilterJob() {
+  let request = new searchFilter(typeProduct ,statusJob, style, minSalary, maxSalary);
+  console.log(request);
+  $.ajax({
+    url: baseUrljob + "/searchfilterJob",
+    type: "POST",
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader(
+        "Authorization",
+        "Bearer " + localStorage.getItem("token")
+      );
+    },
+    contentType: "application/json",
+    data: JSON.stringify(request),
+    error: function (err) {
+      console.log(err.message);
+      confirm(err.responseJSON.message);
+    },
+    success: function (data) {
+      console.log(data);
+      // console.log(data.totalPages);
+      // console.log(data);
+      // console.log(data.content);
+      // job.push(data.content);
+      fillProductsToTable(data.content);
+      if (data) {
+        buildPagination(data.number + 1, data.totalPages);
+      } else {
+        $("#content-product").append(`
+          <div style="justify-content: center; align-items: center; font-size: 1.6rem;">Nothing to show</div>`);
+      }
+    },
+  });
 
 }
+
 
 async function viewListJob() {
   $.ajax({
@@ -487,14 +531,13 @@ function fillProductsToTable(jobList) {
         job.status +
         ` </span></p>
             </div>
-
             ${
-              isManagerJob &&
+              isAdminJob || isEmployeeRole &&
               localStorage.getItem("role") !== null &&
               localStorage.getItem("id") !== null &&
               localStorage.getItem("username") !== null
                 ? `<div class="flex-btn">
-                  <a href="#" class="btn" onclick="viewDetail( ${job.id})"> View details </a>
+                <a href="#" class="btn" onclick="viewDetail( ${job.id})"> View details </a>
                   <a href="#" class="btn" onclick = "editJob('${job.id}','${job.jobTitleName}' ,'${job.image}' , '${job.companyName}', '${job.salary}',
                   '${job.location}', '${job.status}', '${job.application_way}', '${job.jobDescription}', 
                   '${job.jobRequirements}', '${job.career}'  )"> Edit </a>
@@ -503,9 +546,7 @@ function fillProductsToTable(jobList) {
               </div>
                   </div>`
                 : `<div class="flex-btn">
-                    <a href="#" class="btn" onclick="viewDetail( '${job.id}','${job.jobTitleName}' ,'${job.image}' , '${job.companyName}', '${job.salary}',
-                    '${job.location}', '${job.status}', '${job.application_way}', '${job.jobDescription}', 
-                    '${job.jobRequirements}' )"> View details </a>
+                <a href="#" class="btn" onclick="viewDetail( ${job.id})"> View details </a>
 
 
                     <a href="#" class="btn" onclick="addToBasket( ${job.id})"> Apply </a> 
@@ -527,55 +568,68 @@ function applyJob(id) {
   console.log(id);
 }
 
+let typeProduct = "";
+let style = [];
+let statusJob = [];
+
 function getTypeProduct() {
-  let typeProduct = [];
   var checkedAllLocation = document.getElementById("AllLocation").checked;
 
   if (checkedAllLocation) {
-    typeProduct.push("Tất cả địa điểm");
+    typeProduct = "Tất cả địa điểm";
+    return typeProduct;
   }
   var checkedHaNoi = document.getElementById("HaNoi").checked;
   if (checkedHaNoi) {
-    typeProduct.push("Hà Nội");
+    typeProduct = "Hà Nội";
+    return typeProduct
   }
   var checkedHCM = document.getElementById("HCM").checked;
   if (checkedHCM) {
-    typeProduct.push("Hồ Chí Minh");
+    typeProduct = "Hồ Chí Minh";
+    return typeProduct
   }
   var checkedDN = document.getElementById("DN").checked;
   if (checkedDN) {
-    typeProduct.push("Đà Nẵng");
+    typeProduct = "Đà Nẵng";
+    return typeProduct
   }
+
+  console.log(typeProduct);
+  // return typeProduct;
 
   
 }
 
 function getStyle() {
-  let style = [];
   var checkedfulltime = document.getElementById("full-time").checked;
   if (checkedfulltime) {
-    style.push("full-time");
+    style.push("FULL_TIME");
   }
   var checkedparttime = document.getElementById("part-time").checked;
   if (checkedparttime) {
-    style.push("part-time");
+    style.push("PART_TIME");
   }
   var checkedremote = document.getElementById("remote").checked;
   if (checkedremote) {
     style.push("remote");
   }
+  console.log(style);
+  return style;
 }
 
 function getStatusJob() {
-  let statusJob = [];
   var statusonline = document.getElementById("online").checked;
   if (statusonline) {
-    statusJob.push("online");
+    statusJob.push("ONLINE");
   }
   var statusoffline = document.getElementById("offline").checked;
   if (statusoffline) {
-    statusJob.push("offline");
+    statusJob.push("OFFLINE");
   }
+
+  console.log(statusJob);
+  return statusJob;
 }
 
 // function getFillterPrice() {
@@ -668,36 +722,13 @@ function addToBasket(job_id) {
 // }
 
 function navManagerProduct() {
-  isManagerJob = true;
+  isAdminJob = true;
   buildProduct();
 }
 
-function editJob(
-  jobId,
-  jobTitleName,
-  image,
-  companyName,
-  salary,
-  location,
-  status,
-  application_way,
-  jobDescription,
-  jobRequirements,
-  career
-) {
-  console.log(
-    jobId,
-    jobTitleName,
-    image,
-    companyName,
-    salary,
-    location,
-    status,
-    application_way,
-    jobDescription,
-    jobRequirements
+function editJob(jobId,jobTitleName,image,companyName,salary,location,status,application_way,jobDescription,jobRequirements,career
+) {console.log(  jobId,  jobTitleName,  image,  companyName,  salary,  location,  status,  application_way,  jobDescription,  jobRequirements
   );
-
   document.getElementById("jobId").value = jobId;
   document.getElementById("jobName").value = jobTitleName;
   document.getElementById("jobImage").value = image;
@@ -726,46 +757,43 @@ function editJob(
   $("#modalProduct").modal("show");
 }
 
-function viewDetail(
-  jobid,
-  jobTitleName,
-  jobimage,
-  jobcompanyName,
-  jobsalary,
-  joblocation,
-  jobstatus,
-  jobapplication_way,
-  jobDescription,
-  jobRequirements
-) {
-  window.location.href = "viewDetail.html";
+function viewDetail(jobId) {
+  validate();
+  console.log(jobId);
+  
+  $.ajax({
+    url : baseUrljob + "/get_by_id/" + jobId,
+    type: "GET",
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader(
+        "Authorization",
+          "Bearer " + localStorage.getItem("token")
+      );
+    },
+    contentType: "application/json",
+    error: function (err) {
+      console.log(baseUrljob + jobId);
+      console.log(err.message);
+      confirm(err.responseJSON.message);
+    },
+    success: function (data) {
+      $(".modal-content").find('img').attr("src", data.image);
+      document.getElementById("CareerJobDetails").innerHTML = data.career;
+      document.getElementById("CompanyNameJobDetails").innerHTML = data.companyName;
+      document.getElementById("PositionJobDetails").innerHTML = data.jobTitleName;
+      document.getElementById("LocationJobDetails").innerHTML = data.location;
+      document.getElementById("SalaryJobDetails").innerHTML = data.salary;
+      document.getElementById("StatusJobDetails").innerHTML = data.status;
+      document.getElementById("RequirementJobDetails").innerHTML = data.jobRequirements;
+      document.getElementById("DescriptionJobDetails").innerHTML = data.jobDescription;
 
-  // let jobname = jobTitleName;
-  // let image = jobimage;
-  // let companyName = jobcompanyName;
-  // let salary = jobsalary;
-  // let location = joblocation;
-  // let status = jobstatus;
-  // let application_way = jobapplication_way;
-  // let description = jobDescription;
-  // let requirements = jobRequirements;
-  // document.getElementById("aaaa").innerHTML = jobid;
-  // console.log(document.querySelector("#aaaa"));
-  // console.log(document.querySelector(".ViewDetails-jobTitle"));
 
-  // console.log(12);
-  // console.log(document.getElementsByClassName('ViewDetails-image')) ;
-  // console.log(document.getElementById("header_v2"));
-
-  // document.getElementsByClassName('ViewDetails-jobTitle').innerHTML = jobname;
-  // document.getElementsByClassName('ViewDetails-jobCompanyName').innerHTML = companyName;
-  // document.getElementsByClassName('ViewDetails-Location').innerHTML = location;
-  // document.getElementsByClassName('ViewDetails-salary').innerHTML = salary;
-  // document.getElementsByClassName('ViewDetails-status').innerHTML = status;
-  // document.getElementsByClassName('ViewDetails-Requirements').innerHTML = requirements;
-  // document.getElementsByClassName('ViewDetails-description').innerHTML = description;
-  // document.getElementsByClassName('ViewDetails-applyway').innerHTML = application_way;
+      // console.log(document.getElementById("CareerJobDetails"));
+      $("#modalJobDetails").modal("show");
+    }
+  })
 }
+
 
 // function editProduct(productId,imageProduct,productName,price,shippingUnit,status,type) {
 //   console.log(productId,imageProduct,productName,price,shippingUnit,status,type);

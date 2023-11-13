@@ -48,7 +48,7 @@ function signUp() {
           confirm(err.responseJSON.message)
       },
       success: function (data) {
-          console.log(data)
+          // console.log(data)
           // window.location.href = "./index.html"
           window.location.href = "./login.html"
       }

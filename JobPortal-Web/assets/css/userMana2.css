@@ -34,6 +34,7 @@ body{
     border-radius: 10px;
     margin: 10px;
     margin-top: 50px;
+    min-width: 1100px;
 }
 
 .container header .filterEntries{
@@ -111,6 +112,7 @@ header .addMemberBtn button, .popup header .closeBtn, .popup footer .submitBtn{
 .user-padding {
     /* color: red; */
     padding: 10px;
+    color: red;
 }
 
 
@@ -189,7 +191,8 @@ table td button{
     margin-top: 25px;
     font-size: 16px;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    justify-content: end;
     align-items: center;
 }
 
@@ -392,4 +395,34 @@ input::-webkit-outer-spin-button{
     transform: scale(1);
     opacity: 1;
     visibility: visible;
+}
+
+
+
+#customers {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #customers td, #customers th {
+    /* border: 1px solid #ddd; */
+    padding: 8px;
+  }
+  
+  #customers tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #customers tr:hover {background-color: #ddd;}
+  
+  #customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+  }
+
+
+.thead {
+  display: flex;
 }
