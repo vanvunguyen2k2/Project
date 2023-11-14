@@ -173,7 +173,6 @@ function UpdateJob(
 }
 
 function fillterApply() {
-  console.log(123);
   getTypeProduct();
   getStyle();
   getStatusJob();
