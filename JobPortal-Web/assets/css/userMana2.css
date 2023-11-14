@@ -127,6 +127,7 @@ table .heading{
     color: var(--dark8);
 }
 
+
 table .heading th:hover{
     background: var(--dark4);
     transition: 0.3s;

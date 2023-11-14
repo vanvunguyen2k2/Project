@@ -1,11 +1,10 @@
 let baseUrlUser = "http://localhost:8887/api/v1/user/";
-let baseUrlGetlistUser = "http://localhost:8887/api/v1/user/get-All";
+
 let pageCurrent = 2;
 let baseViewListUser = "http://localhost:8887/api/v1/user/view";
 
 $(function () {
   getListUser();
-  // $("#modalListJobApplied").modal("show");
 
 });
 
@@ -57,10 +56,6 @@ function ManageUserFillToTable(userList) {
                     <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96c.026-.163.04-.33.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1.006 1.006 0 0 1 1 12V4Z"/>
                     
                   </svg>
-
-                  
-                  
-                  
                 </div>
                     
                 </td>
@@ -69,10 +64,27 @@ function ManageUserFillToTable(userList) {
       );
   }
 }
+let isSortType = false; 
+let sortField = "id";
+
+function sortByfieldAndType(filed) {
+
+  if(filed == sortField) {
+    console.log(filed);
+    // baseUrlGetlistUser = baseUrlGetlistUser.substr(0, 41);
+    isSortType = !isSortType;
+  }else {
+    sortField = filed;
+    // baseUrlGetlistUser = baseUrlGetlistUser.substr(0, 41);
+    isSortType = true;
+    console.log(filed);
+  }
+  getListUser();
+  
+}
 
 function viewJobApllied(userId) {
   console.log(userId);
-
     $.ajax({
       url: baseUrlUser + "get_by_id/" + userId,
       type: 'GET',
@@ -101,20 +113,11 @@ function viewJobApllied(userId) {
 
 
 function fillJobToTable(jobList) {
-
-  // let text = "No data";
-  
-  // document.getElementById('Nodatatoshow').innerHTML = text
-
   $(".jobApplied").empty();
 
   for (var index = 0; index < jobList.length; index++) {
     let jobValue = jobList[index];
     console.log(jobValue);
-
-    
-
-
   $(".jobApplied").append(
 
     `
@@ -131,41 +134,6 @@ function fillJobToTable(jobList) {
     `
     
   );
-
-
-
-    // jobValue == 0
-    //   ? $(".jobApplied").append(`<h1>User này chưa applied job nào</h1>`)
-    //   : $(".jobApplied").append(
-    //     `
-    //     <tr class = "user-padding">
-    //     <td>` +
-    //     jobValue.id +
-    //     `    </td>
-    //     <td><img src="` +
-    //     jobValue.image +
-    //     `" alt="" width="50" height="50"></td>
-    //     <td>` +
-    //     jobValue.career +
-    //     `</td>
-    //     <td>` +
-    //     jobValue.JobTitleName +
-    //     `</td>
-    //     <td>` +
-    //     jobValue.companyName +
-    //     `</td>    
-    //     <td>` +
-    //     jobValue.location +
-    //     `</td>     
-    //     <td>` +
-    //     jobValue.salary +
-    //     `</td>  
-    //     <td>` +
-    //     jobValue.status +
-    //     `</td>
-
-    //   `
-    //   );
   }
 }
 
@@ -207,9 +175,9 @@ function buildPagingUser(currentPage, totalPage) {
     `);
   } else {
     $(".user-pagination").empty().append(`
-      <button onclick = "pre()">Prev</button>
+      
       <span class = "indexPage"></span>
-      <button onclick = "next()">Next</button>
+      <button onclick = "nextPaging()">Next</button>
     `);
   }
 
@@ -223,7 +191,7 @@ function buildPagingUser(currentPage, totalPage) {
     } else {
       $(".indexPage").append(
         `
-            <button onclick="chosePageIndex(${index})">${index}</button>
+            <button onclick="changePage(${index})">${index}</button>
           `
       );
     }
@@ -231,30 +199,29 @@ function buildPagingUser(currentPage, totalPage) {
 
   if (currentPage === totalPage) {
     $(".user-pagination").empty().append(`
-      <button onclick = "pre()">Pre</button>
+      <button onclick = "prevPaging()">Pre</button>
     `);
   }
 }
 
-function chosePageIndex(indexpage) {
-  baseUrlGetlistUser = baseUrlGetlistUser.substr(0, 41);
+function changePage(page) {
+  if (page == currentPage) {
+    return;
 
-  baseUrlGetlistUser = baseUrlGetlistUser + "?page=" + indexpage;
+  }
+  currentPage = page;
   getListUser();
 }
 
-function next() {
-  baseUrlGetlistUser = baseUrlGetlistUser.substr(0, 41);
-  baseUrlGetlistUser = baseUrlGetlistUser + "?page=" + pageCurrent++;
-  getListUser();
+function prevPaging() {
+  changePage(currentPage -1);
+  
 }
 
-function pre() {
-  baseUrlGetlistUser = baseUrlGetlistUser.substr(0, 41);
-  // console.log(baseUrlGetlistUser);
-  baseUrlGetlistUser = baseUrlGetlistUser + "?page=" + (--pageCurrent - 1);
-  // console.log(baseUrlGetlistUser);
-  getListUser();
+function nextPaging() {
+  changePage (currentPage + 1);
+
+  
 }
 
 function clearInput() {
@@ -298,7 +265,19 @@ function searchUser() {
   });
 }
 
+let currentPage = 1;
+let size = 4;
+
 function getListUser() {
+
+  let baseUrlGetlistUser = "http://localhost:8887/api/v1/user/get-All";
+  
+  // baseUrlGetlistUser = baseUrlGetlistUser.substr(0,41);
+
+  baseUrlGetlistUser += "?page=" + currentPage  + "&size=" + size;
+  
+  baseUrlGetlistUser += "&sort=" + sortField + "," + (isSortType ? "asc" : "desc");
+  
   $.ajax({
     url: baseUrlGetlistUser,
     type: "GET",
@@ -314,11 +293,6 @@ function getListUser() {
       confirm(err.responseJSON.message);
     },
     success: function (data) {
-      // console.log(data.content);
-      // console.log(data.size);
-      // console.log(data.number);
-      // console.log(data.content);
-      // console.log(data.totalPages);
       ManageUserFillToTable(data.content);
 
       buildPagingUser(data.number + 1, data.totalPages);
