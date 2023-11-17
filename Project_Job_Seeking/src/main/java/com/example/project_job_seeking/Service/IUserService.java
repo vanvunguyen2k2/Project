@@ -26,7 +26,9 @@ public interface IUserService {
     List<User> view();
 
 
+    boolean existsByEmail(String email);
 
+    boolean existsByUsername(String username);
 
 
 //    User updateResetPassword(String token, String email);

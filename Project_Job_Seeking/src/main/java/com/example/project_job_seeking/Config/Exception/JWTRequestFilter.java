@@ -46,6 +46,8 @@ public class JWTRequestFilter extends OncePerRequestFilter {
                 || StringUtils.containsAnyIgnoreCase( httprequest, "/api/v1/user/delete")
                 || StringUtils.containsAnyIgnoreCase( httprequest, "/api/v1/user/get_by_id/")
                 || StringUtils.containsAnyIgnoreCase( httprequest, "/api/v1/job/get-All")
+                || StringUtils.containsAnyIgnoreCase( httprequest, "/api/v1/user/existsByUsername/")
+
                 || StringUtils.containsAnyIgnoreCase( httprequest, "/api/v1/user/create")
             || StringUtils.containsAnyIgnoreCase( httprequest, "/api/v1/user/search")
                 || StringUtils.containsAnyIgnoreCase( httprequest, "/api/v1/job_management")

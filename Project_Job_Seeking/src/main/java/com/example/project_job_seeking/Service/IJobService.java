@@ -28,4 +28,6 @@ public interface IJobService {
     List<Job> view ();
 
     Page<Job> searchfilterJob(Search searchJobRequest , Pageable pageable);
+
+
 }

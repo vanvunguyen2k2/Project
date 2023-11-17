@@ -23,6 +23,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+
 public class JobService implements IJobService {
 
     @Autowired
@@ -66,6 +67,8 @@ public class JobService implements IJobService {
         System.out.println(condition);
         return jobRepository.findAll(condition, pageable);
     }
+
+
 
 
     @Override

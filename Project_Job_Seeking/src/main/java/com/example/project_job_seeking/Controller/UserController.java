@@ -100,7 +100,17 @@ public class UserController {
     }
 
 
+    @GetMapping("/existsByUsername/{username}")
+    public boolean existsByUsername(@PathVariable(name = "username") String username) {
+        return userService.existsByUsername(username);
 
+    }
+
+    @GetMapping("/existsByEmail/{email}")
+    public boolean existsByEmail(@PathVariable(name = "email") String email) {
+        return userService.existsByEmail(email);
+
+    }
 
 
 
