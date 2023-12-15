@@ -6,10 +6,7 @@ import com.example.project_job_seeking.Repository.UserRepository;
 import com.example.project_job_seeking.Repository.specification.UserSpecification;
 import com.example.project_job_seeking.modal.Entity.Role;
 import com.example.project_job_seeking.modal.Entity.User;
-import com.example.project_job_seeking.modal.dto.SearchUserRequest;
-import com.example.project_job_seeking.modal.dto.UserCreateRequestDto;
-import com.example.project_job_seeking.modal.dto.UserDto;
-import com.example.project_job_seeking.modal.dto.UserUpdateRequestDto;
+import com.example.project_job_seeking.modal.dto.*;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
@@ -157,6 +154,12 @@ public class UserService implements IUserService , UserDetailsService {
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
     }
+
+//    @Override
+//    public User changeUserProfile(String username, ChaneProfileDTO chaneProfileDTO) {
+//        Optional<User> user = userRepository.findUserByUsername(username);
+//        user.get().setImage(chaneProfileDTO.getAvatarUrl());
+//    }
 
 
     /**

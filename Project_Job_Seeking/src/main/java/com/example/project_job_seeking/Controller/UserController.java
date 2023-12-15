@@ -7,18 +7,19 @@ import com.example.project_job_seeking.Repository.UserRepository;
 import com.example.project_job_seeking.Service.UserService;
 import com.example.project_job_seeking.modal.Entity.Role;
 import com.example.project_job_seeking.modal.Entity.User;
-import com.example.project_job_seeking.modal.dto.SearchUserRequest;
-import com.example.project_job_seeking.modal.dto.UserCreateRequestDto;
-import com.example.project_job_seeking.modal.dto.UserDto;
-import com.example.project_job_seeking.modal.dto.UserUpdateRequestDto;
+import com.example.project_job_seeking.modal.dto.*;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +38,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @PostMapping("/create")
     public User create(@RequestBody @Valid UserCreateRequestDto dto){
@@ -113,6 +117,36 @@ public class UserController {
     }
 
 
+    @GetMapping("/profileUser")
+    public ResponseEntity<?> getUserProfile (Authentication authentication) {
+
+
+//          LẤY RA THÔNG TIN USERNAME KHI ĐÃ ĐĂNG NHẬP THÀNH CÔNG
+        String username = authentication.getName();
+
+//        TIẾP ĐẾN LÀ LẤY THÔNG TIN CỦA USER ĐÓ THÔNG QUA USER NAME ĐÃ LẤY Ở TRÊN
+
+        Optional<User> user = userRepository.findUserByUsername(username);
+        System.out.println(user);
+
+        ProfileDTO profileDTO = modelMapper.map(user.get(), ProfileDTO.class);
+
+        System.out.println(profileDTO);
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+
+//    public ResponseEntity<?> changeProfile (Authentication authentication, @RequestBody ChaneProfileDTO chaneProfileDTO) {
+//
+//        //          LẤY RA THÔNG TIN USERNAME KHI ĐÃ ĐĂNG NHẬP THÀNH CÔNG
+//        String userName = authentication.getName();
+//
+//
+//
+//
+//
+//    }
 
 
 }

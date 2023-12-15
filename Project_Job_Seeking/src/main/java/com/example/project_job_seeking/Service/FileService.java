@@ -22,7 +22,7 @@ public class FileService implements IFileService{
         String path = linkFolder + "\\" + nameImage;
         fileManager.createNewMultiPartFile(path, image);
 
-        return  path;
+        return  nameImage;
     }
 
     @Override

@@ -30,6 +30,8 @@ public interface IUserService {
 
     boolean existsByUsername(String username);
 
+//    User changeUserProfile (String username, ChaneProfileDTO chaneProfileDTO);
+
 
 //    User updateResetPassword(String token, String email);
 }
