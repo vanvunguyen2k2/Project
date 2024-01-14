@@ -24,19 +24,18 @@ public class UserCreateRequestDto {
     @NotAdmin
     private String username;
 
-    @NotBlank(message = "Phone Không được để trống")
+
     private String phone_number;
 
     @NotBlank(message = "Password Không được để trống")
     private String password;
 
-    @Column(name = "image", nullable = false)
+
     private String image;
 
     private String information;
 
-    @NotBlank(message = "Full_name Không được để trống")
-    @Length(max = 50, message = "Không được vượt quá 50 ký tự")
+
     private String full_name;
 
     @NotBlank(message = "Email Không được để trống")
