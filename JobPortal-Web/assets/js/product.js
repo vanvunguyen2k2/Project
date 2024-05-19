@@ -25,13 +25,11 @@ let baseViewList = "http://localhost:8887/api/v1/job/get-All?sort=id,desc";
 
 $(function () {
   buildManager();
-  // buildAdmin();
-  // getListProduct();
-  // getListJob();
+
   viewListJob();
-  // $("#modalJobDetails").modal("show");
 });
 
+// Validate
 function validate() {
   if (
     localStorage.getItem("id") === null ||
@@ -44,14 +42,14 @@ function validate() {
     window.location.href = "login.html";
   }
 }
-
+// Check login into web is ADMIN
 function buildAdmin() {
   if (localStorage.getItem("role") === "ADMIN") {
     $("#user-login").append(
       `
      <li ><a href="">Quan ly nguoi dung</a></li>
       `
-    )
+    );
   }
 }
 
@@ -82,7 +80,18 @@ function buildManager() {
   }
 }
 
-function searchListJob(jobTitleNameRequest,status,minSalary,maxSalary,application_way,companyName,locationRequest,page,page_size,sortField,sortType
+function searchListJob(
+  jobTitleNameRequest,
+  status,
+  minSalary,
+  maxSalary,
+  application_way,
+  companyName,
+  locationRequest,
+  page,
+  page_size,
+  sortField,
+  sortType
 ) {
   this.jobTitleNameRequest = jobTitleNameRequest;
   this.status = status;
@@ -97,15 +106,20 @@ function searchListJob(jobTitleNameRequest,status,minSalary,maxSalary,applicatio
   this.sortType = sortType;
 }
 
-function searchFilter(locationRequest, application_way, status, minSalary, maxSalary) {
+function searchFilter(
+  locationRequest,
+  application_way,
+  status,
+  minSalary,
+  maxSalary
+) {
   this.locationRequest = locationRequest;
   this.application_way = application_way;
   this.status = status;
   this.minSalary = minSalary;
   this.maxSalary = maxSalary;
-  
 }
-
+// Create function to  get list of jobs by filter
 function SearchProductRequest(
   jobTitleName,
   companyName,
@@ -132,7 +146,18 @@ function SearchProductRequest(
   this.sortType = sortType;
 }
 
-function CreatProductRequest(jobTitleName,salary,image,status,jobDescription,companyName,location,jobRequirements,application_way,career
+// Create a new item job
+function CreatProductRequest(
+  jobTitleName,
+  salary,
+  image,
+  status,
+  jobDescription,
+  companyName,
+  location,
+  jobRequirements,
+  application_way,
+  career
 ) {
   this.jobTitleName = jobTitleName;
   this.salary = salary;
@@ -177,11 +202,16 @@ function fillterApply() {
   getStyle();
   getStatusJob();
   searchFilterJob();
-  
 }
 
 async function searchFilterJob() {
-  let request = new searchFilter(typeProduct ,statusJob, style, minSalary, maxSalary);
+  let request = new searchFilter(
+    typeProduct,
+    statusJob,
+    style,
+    minSalary,
+    maxSalary
+  );
   console.log(request);
   $.ajax({
     url: baseUrljob + "/searchfilterJob",
@@ -195,15 +225,9 @@ async function searchFilterJob() {
     contentType: "application/json",
     data: JSON.stringify(request),
     error: function (err) {
-      console.log(err.message);
       confirm(err.responseJSON.message);
     },
     success: function (data) {
-      console.log(data);
-      // console.log(data.totalPages);
-      // console.log(data);
-      // console.log(data.content);
-      // job.push(data.content);
       fillProductsToTable(data.content);
       if (data) {
         buildPagination(data.number + 1, data.totalPages);
@@ -213,13 +237,11 @@ async function searchFilterJob() {
       }
     },
   });
-
 }
-
 
 async function viewListJob() {
   $.ajax({
-    url: baseViewList ,
+    url: baseViewList,
     type: "GET",
     beforeSend: function (xhr) {
       xhr.setRequestHeader(
@@ -228,18 +250,10 @@ async function viewListJob() {
       );
     },
     contentType: "application/json",
-    // data : JSON.stringify(request),
     error: function (err) {
-      console.log(err.message);
       confirm(err.responseJSON.message);
     },
     success: function (data) {
-      console.log(data.content);
-      // console.log(data.number);
-      // console.log(data.totalPages);
-      // job.push(data.content);
-      // console.log(job);
-
       fillProductsToTable(data.content);
       if (data) {
         buildPagination(data.number + 1, data.totalPages);
@@ -253,8 +267,7 @@ async function viewListJob() {
 
 function showMessage(keyword) {
   $(".heading").empty();
-  $(".heading").append( 
-    `<h2>Dữ liệu hiển thị cho từ khóa '${keyword}' </h2> `   )
+  $(".heading").append(`<h2>Dữ liệu hiển thị cho từ khóa '${keyword}' </h2> `);
 }
 
 function searchInput() {
@@ -271,19 +284,20 @@ function searchInput() {
         );
       },
       contentType: "application/json",
-      // data : JSON.stringify(request),
       error: function (err) {
         console.log(err.message);
         confirm(err.responseJSON.message);
       },
       success: function (data) {
         console.log(data);
-  
+
         let test = data.filter((value) => {
-          return value.jobTitleName.toLowerCase().includes(keyword) || 
-                  value.companyName.toLowerCase().includes(keyword) ||
-                  value.location.toLowerCase().includes(keyword) ||
-                  value.status.toLowerCase().includes(keyword);
+          return (
+            value.jobTitleName.toLowerCase().includes(keyword) ||
+            value.companyName.toLowerCase().includes(keyword) ||
+            value.location.toLowerCase().includes(keyword) ||
+            value.status.toLowerCase().includes(keyword)
+          );
         });
 
         console.log(test);
@@ -292,12 +306,9 @@ function searchInput() {
         clear();
       },
     });
-    
-  }else{
+  } else {
     alert("Mời nhập thông tin tìm kiếm");
   }
-
-  
 }
 function clear() {
   document.getElementById("inputSearch").value = "";
@@ -335,10 +346,6 @@ async function getListJob() {
       confirm(err.responseJSON.message);
     },
     success: function (data) {
-      // console.log(data.totalPages);
-      // console.log(data);
-      // console.log(data.content);
-      // job.push(data.content);
       fillProductsToTable(data.content);
       if (data) {
         buildPagination(data.number + 1, data.totalPages);
@@ -417,13 +424,21 @@ function buildPagination(number, totalPages) {
     if (number === index) {
       $("#pagination").append(
         `<li class="pagination-item pagination-item--active">
-            <a href="" class="pagination-item__link" onclick="chosePage(` +index +`)">` + index + `</a>
+            <a href="" class="pagination-item__link" onclick="chosePage(` +
+          index +
+          `)">` +
+          index +
+          `</a>
         </li>`
       );
     } else {
       $("#pagination").append(
         `<li class="pagination-item">
-            <a href="" class="pagination-item__link" onclick="chosePage(` +index + `)">` +index +`</a> 
+            <a href="" class="pagination-item__link" onclick="chosePage(` +
+          index +
+          `)">` +
+          index +
+          `</a> 
             </li>`
       );
     }
@@ -448,27 +463,21 @@ function chosePage(pageNumber) {
   page = pageNumber;
   baseViewList = baseViewList.substr(0, 40);
   console.log(baseViewList);
-  // baseViewList = baseUrljob.substring();
   baseViewList = baseViewList + "?page=" + pageNumber;
   console.log(baseViewList);
 
-  // getListJob();
   viewListJob();
-  // baseViewList = baseViewList + "";
-  // console.log(baseViewList);
 }
 function prePage() {
   event.preventDefault();
 
   page--;
-  // getListJob();
   viewListJob();
 }
 
 function nextPage() {
   event.preventDefault();
   page++;
-  // getListJob();
   viewListJob();
 }
 
@@ -476,20 +485,8 @@ function fillProductsToTable(jobList) {
   // LÀM TRỐNG DỮ LIỆU
   $("#content-product").empty();
 
-  // console.log(jobList);
-  // $("#content-product").append(`
-  //         <h1 class="heading" >All jobs</h1>
-  // `);
-
   for (var index = 0; index < jobList.length; index++) {
     let job = jobList[index];
-    // console.log(job);
-    // console.log(jobList[index]);
-    // console.log(job.id);
-    // let status = job.status === "NEW" ? "Mới" : "Đã sử dụng";
-    // let status = job.status === "FULL_TIME" ? "FULL_TIME" : "PART_TIME";
-    // let status =  job.status;
-    // console.log(status);
 
     $("#content-product").append(
       `
@@ -531,10 +528,11 @@ function fillProductsToTable(jobList) {
         ` </span></p>
             </div>
             ${
-              isAdminJob || isEmployeeRole &&
-              localStorage.getItem("role") !== null &&
-              localStorage.getItem("id") !== null &&
-              localStorage.getItem("username") !== null
+              isAdminJob ||
+              (isEmployeeRole &&
+                localStorage.getItem("role") !== null &&
+                localStorage.getItem("id") !== null &&
+                localStorage.getItem("username") !== null)
                 ? `<div class="flex-btn">
                 <a href="#" class="btn" onclick="viewDetail( ${job.id})"> View details </a>
                   <a href="#" class="btn" onclick = "editJob('${job.id}','${job.jobTitleName}' ,'${job.image}' , '${job.companyName}', '${job.salary}',
@@ -581,23 +579,21 @@ function getTypeProduct() {
   var checkedHaNoi = document.getElementById("HaNoi").checked;
   if (checkedHaNoi) {
     typeProduct = "Hà Nội";
-    return typeProduct
+    return typeProduct;
   }
   var checkedHCM = document.getElementById("HCM").checked;
   if (checkedHCM) {
     typeProduct = "Hồ Chí Minh";
-    return typeProduct
+    return typeProduct;
   }
   var checkedDN = document.getElementById("DN").checked;
   if (checkedDN) {
     typeProduct = "Đà Nẵng";
-    return typeProduct
+    return typeProduct;
   }
 
   console.log(typeProduct);
   // return typeProduct;
-
-  
 }
 
 function getStyle() {
@@ -725,8 +721,30 @@ function navManagerProduct() {
   buildProduct();
 }
 
-function editJob(jobId,jobTitleName,image,companyName,salary,location,status,application_way,jobDescription,jobRequirements,career
-) {console.log(  jobId,  jobTitleName,  image,  companyName,  salary,  location,  status,  application_way,  jobDescription,  jobRequirements
+function editJob(
+  jobId,
+  jobTitleName,
+  image,
+  companyName,
+  salary,
+  location,
+  status,
+  application_way,
+  jobDescription,
+  jobRequirements,
+  career
+) {
+  console.log(
+    jobId,
+    jobTitleName,
+    image,
+    companyName,
+    salary,
+    location,
+    status,
+    application_way,
+    jobDescription,
+    jobRequirements
   );
   document.getElementById("jobId").value = jobId;
   document.getElementById("jobName").value = jobTitleName;
@@ -759,14 +777,14 @@ function editJob(jobId,jobTitleName,image,companyName,salary,location,status,app
 function viewDetail(jobId) {
   validate();
   console.log(jobId);
-  
+
   $.ajax({
-    url : baseUrljob + "/get_by_id/" + jobId,
+    url: baseUrljob + "/get_by_id/" + jobId,
     type: "GET",
-    beforeSend: function(xhr) {
+    beforeSend: function (xhr) {
       xhr.setRequestHeader(
         "Authorization",
-          "Bearer " + localStorage.getItem("token")
+        "Bearer " + localStorage.getItem("token")
       );
     },
     contentType: "application/json",
@@ -776,23 +794,25 @@ function viewDetail(jobId) {
       confirm(err.responseJSON.message);
     },
     success: function (data) {
-      $(".modal-content").find('img').attr("src", data.image);
+      $(".modal-content").find("img").attr("src", data.image);
       document.getElementById("CareerJobDetails").innerHTML = data.career;
-      document.getElementById("CompanyNameJobDetails").innerHTML = data.companyName;
-      document.getElementById("PositionJobDetails").innerHTML = data.jobTitleName;
+      document.getElementById("CompanyNameJobDetails").innerHTML =
+        data.companyName;
+      document.getElementById("PositionJobDetails").innerHTML =
+        data.jobTitleName;
       document.getElementById("LocationJobDetails").innerHTML = data.location;
       document.getElementById("SalaryJobDetails").innerHTML = data.salary;
       document.getElementById("StatusJobDetails").innerHTML = data.status;
-      document.getElementById("RequirementJobDetails").innerHTML = data.jobRequirements;
-      document.getElementById("DescriptionJobDetails").innerHTML = data.jobDescription;
-
+      document.getElementById("RequirementJobDetails").innerHTML =
+        data.jobRequirements;
+      document.getElementById("DescriptionJobDetails").innerHTML =
+        data.jobDescription;
 
       // console.log(document.getElementById("CareerJobDetails"));
       $("#modalJobDetails").modal("show");
-    }
-  })
+    },
+  });
 }
-
 
 // function editProduct(productId,imageProduct,productName,price,shippingUnit,status,type) {
 //   console.log(productId,imageProduct,productName,price,shippingUnit,status,type);
@@ -955,7 +975,6 @@ function resetFormProduct() {
   document.getElementById("jobLocation").value = "";
   document.getElementById("jobStatus").value = "FULL_TIME";
   document.getElementById("jobApply").value = "ONLINE";
-  // document.getElementById("jobGender").value = "MALE";
   document.getElementById("jobDescription").value = "";
   document.getElementById("jobRequirements").value = "";
   document.getElementById("jobCareer").value = "";
@@ -965,12 +984,10 @@ function sortCreateDate(type) {
   sortField = "create_date";
   sortType = type;
   getListJob();
-  console.log(type);
 }
 
 function sortPrice(type) {
   sortField = "salary";
   sortType = type;
   getListJob();
-  console.log(type);
 }
